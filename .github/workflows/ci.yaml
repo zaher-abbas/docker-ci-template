@@ -1,0 +1,36 @@
+name: CI Pipeline
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v4
+
+            -   name: Docker info
+                run: |
+                    docker --version
+                    docker compose version
+
+            -   name: Build services
+                run: docker compose -f docker-compose.yaml build
+
+            -   name: Install dependencies
+                run: |
+                    docker compose run --rm composer_sf composer install \
+                      --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+            -   name: Run tests
+                run: |
+                    docker compose run --rm php_sf ./vendor/bin/phpunit --testdox
+
+            -   name: Clean up containers
+                if: always()
+                run: docker compose down
