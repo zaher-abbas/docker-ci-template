@@ -29,7 +29,7 @@ php/web/db with your service names).
 ## Prerequisites
 
 - Docker Desktop 4.x or newer
-- Docker Compose v2.x
+- Docker Compose v2.x (included with Docker Desktop installer)
 - Git
 - On Windows: WSL2 backend is recommended for best performance
 
@@ -213,11 +213,10 @@ docker compose exec php php -m | grep -i pdo_mysql
 
 ## Common Commands
 
-- Open a shell in the PHP container (so you can run maker and doctrine commands):
+- Open a shell in the PHP container (so you can run maker and doctrine commands directly):
 
 ```
-bash
-docker compose exec php bash
+docker compose exec -it php sh
 ```
 
 - Run Symfony console:
