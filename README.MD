@@ -213,7 +213,7 @@ docker compose exec php php -m | grep -i pdo_mysql
 
 ## Common Commands
 
-- Open a shell in the PHP container:
+- Open a shell in the PHP container (so you can run maker and doctrine commands):
 
 ```
 bash
